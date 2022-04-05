@@ -1,0 +1,11 @@
+{
+    "name": "Appscope",
+    "display": "standalone",
+    "icons": [{
+       "src": "images/leaves-export.png",
+       "sizes": "192x192"},
+    {
+       "src": "images/leaves-export.png",
+       "sizes": "512x512"}
+    ]
+ }
