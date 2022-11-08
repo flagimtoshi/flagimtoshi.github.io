@@ -143,6 +143,10 @@ text-align: left;
 		  padding: 0px;
 		  float:left;
         }
+		#contentdiv {
+		width: 95.5%;
+		
+}
       }
 
 .btn-group button {
