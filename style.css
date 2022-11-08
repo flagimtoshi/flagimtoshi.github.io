@@ -53,7 +53,9 @@ div.sidebar{
 .thin-div{
 	border: 0px;
 }
-
+.compact{
+	
+}
 .flex-container {
   display: flex;
   flex-wrap: nowrap;
@@ -169,4 +171,28 @@ text-align: left;
 /* Add a background color on hover */
 .btn-group button:hover {
   filter: brightness(69%);
+}
+
+a:link {
+
+color: gray;
+
+}
+
+a:visited {
+
+color: gray;
+
+}
+
+a:hover {
+
+color: blue;
+
+}
+
+a:active {
+
+color: teal;
+
 }
