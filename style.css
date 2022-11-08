@@ -116,11 +116,15 @@ text-align: left;
     width: 69%;
     float:left; /* add this */
     /*border: 1px solid red;*/
+	
+	margin-right: 0px;
 }
 #sidebardiv {
-	width: 25%;
+	width: 26%;
     /*border: 1px solid green;*/
-    float: left; /* add this */
+    float: right; /* add this */
+	padding: 2px;
+	margin-left: 0px;
 }
 
 @media (max-width: 767px) {
@@ -145,7 +149,8 @@ text-align: left;
   background-color: #057EDF;
   border: 2px solid white;
   color: white;
-  padding: 10px 24px;
+  padding: 10px 10px;/*24px*/
+  margin: 0px;
   cursor: pointer;
   float: left;
   width:25%;
