@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <title>Flagimtoshi</title>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <meta name="description" content="" />
+  
+  <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+
+<script>
+  function go(loc) {
+    document.getElementById('contentset').data = loc;
+  }
+  </script> 
+
+</head>
+
+<body class="tjing">
+	
+  <div class="center">
+  <img class="floatleft small"src="https://flagimtoshi.github.io/Logo.png" width="64px" ></img>
+  <h1 class="flagimtoshi">Flagimtoshi</h1>
+  </div>
+  
+  <div class="title">
+  
+	<p class="center"> 
+	<div class="btn-group">
+  <button onclick="go('homepage.html');">Home</button>
+  <button onclick="go('info.html');">About</button>
+  <button onclick="go('download.html');">Downloads</button>
+  <button onclick="go('contact.html');">Contact</button>
+	</div> 
+	</p>
+  
+  </div>
+  <!--<iframe src="titlebar.html" frameborder="0" height="250px" width="100%"></iframe>-->
+  
+  
+  <div id="wrapper" class=" thin-div fullscreen" style="width: 100%; height: 100%;">
+  <div id="contentdiv"class="content fullscreen-mobile">
+  
+	<!-- place iframe here-->
+	<div class="thin-div thin-scroll fullscreen-mobile" width="100%" height="500%">
+	<object class="thin-scroll"id="contentset" type="text/html" data="homepage.html" width="100%" height="500%"></object>
+	</div>
+	<!--<iframe src="content.html" width="100%" height="100%" onload="this.insertAdjacentHTML('afterend', (this.contentDocument.body||this.contentDocument).innerHTML);this.remove()"></iframe>
+  -->
+	<hr>
+	<p class="center small">Made with 💙 by Flagimtoshi</p>
+  
+  </div>
+  
+  <div id="sidebardiv" class="sidebar floatright hidden-mobile">
+  
+	<p class="center">Hello and Welcome to the new and improved Flagimtoshi Homepage!</p>
+	<p class="center">Visit me here:</p>
+  <div class="btn-group center">
+  <button style="width: 50%; background: #ff0000;" onclick="window.location.href='https://www.youtube.com/channel/UCszZrj391-2HMwl86H51Nnw'">Youtube</button>
+  <button style="width: 50%; background: #fa5c5c;" onclick="window.location.href='https://flagimtoshi.itch.io/'">Itch.io</button>
+  <button style="width: 50%; background: #2f7f6f;" onclick="window.location.href='https://gamejolt.com/@Flagimtoshi'">GameJolt</button>
+  <button style="width: 50%; background: #1da1f2;" onclick="window.location.href='https://twitter.com/Flagimtoshi/'">Twitter</button>
+  </div>
+	<p class="center">With this fresh coat of paint, I present a better UX for everyone!</p>
+	
+  
+  </div>
+ </div>
+
+</body>
+
+</html>
