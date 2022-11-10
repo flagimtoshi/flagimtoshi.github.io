@@ -127,6 +127,10 @@ text-align: left;
 	margin-left: 0px;
 }
 
+#contentset {
+	width: 100%;
+}
+
 @media (max-width: 767px) {
         .hidden-mobile {
           display: none;
@@ -144,7 +148,8 @@ text-align: left;
 		  float:left;
         }
 		#contentdiv {
-		width: 95.5%;
+		/*width: 95.5%;*/
+		width: calc(100% - 32px);
 		
 }
       }
@@ -162,6 +167,7 @@ text-align: left;
   text-align: center;
   
   transition: filter 0.5s;
+  transition: size: 1s;
    
 }
 
@@ -179,6 +185,15 @@ text-align: left;
 /* Add a background color on hover */
 .btn-group button:hover {
   filter: brightness(69%);
+  size: 1.1;
+}
+
+.grow { 
+transition: all .2s ease-in-out; 
+}
+
+.grow:hover { 
+transform: scale(1.1); 
 }
 
 a:link {
