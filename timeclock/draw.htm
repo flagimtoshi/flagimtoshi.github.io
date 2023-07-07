@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Fullscreen Drawing Page</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+        }
+
+        #canvas {
+            width: 100%;
+            height: 100%;
+            cursor: crosshair;
+        }
+
+        #controls {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+        }
+
+        #controls input {
+            margin-right: 10px;
+        }
+
+		 #controls a {
+				color: #fff;
+				font-family: Tahoma, sans-serif;
+				text-decoration: none;
+		 }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <div id="controls">
+        <input type="color" id="color-picker">
+        <button id="eraser-btn">Eraser</button>
+		  <a onclick="history.back();">Back</a>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+        const colorPicker = document.getElementById('color-picker');
+        const eraserButton = document.getElementById('eraser-btn');
+
+        // Set canvas size to match window size
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+        let color = '#ffffff';
+
+        function startDrawing(e) {
+            isDrawing = true;
+            lastX = e.clientX || e.touches[0].clientX;
+            lastY = e.clientY || e.touches[0].clientY;
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+
+            const clientX = e.clientX || e.touches[0].clientX;
+            const clientY = e.clientY || e.touches[0].clientY;
+
+            context.strokeStyle = color;
+            context.lineJoin = 'round';
+            context.lineCap = 'round';
+            context.lineWidth = 5;
+
+            context.beginPath();
+            context.moveTo(lastX, lastY);
+            context.lineTo(clientX, clientY);
+            context.stroke();
+
+            lastX = clientX;
+            lastY = clientY;
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+        }
+
+        function setEraserMode() {
+            color = '#000000';
+        }
+
+        colorPicker.addEventListener('change', function (e) {
+            color = e.target.value;
+        });
+
+        eraserButton.addEventListener('click', setEraserMode);
+
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+
+        // Touch events
+        canvas.addEventListener('touchstart', startDrawing);
+        canvas.addEventListener('touchmove', draw);
+        canvas.addEventListener('touchend', stopDrawing);
+        canvas.addEventListener('touchcancel', stopDrawing);
+    </script>
+</body>
+</html>

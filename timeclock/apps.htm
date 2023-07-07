@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sleek App Selector</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        #apps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            width: 70%;
+            height: 70%;
+            background-color: #333;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            padding: 20px;
+        }
+
+        .app {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+            cursor: pointer;
+        }
+
+        .app img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .app span {
+            color: #fff;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="apps">
+            <div class="app">
+                <img src="flagimtoshi.github.io/.png" alt="App 1">
+                <span>App 1</span>
+            </div>
+            <div class="app">
+                <img src="app2.png" alt="App 2">
+                <span>App 2</span>
+            </div>
+            <div class="app">
+                <img src="app3.png" alt="App 3">
+                <span>App 3</span>
+            </div>
+            <div class="app">
+                <img src="app4.png" alt="App 4">
+                <span>App 4</span>
+            </div>
+            <div class="app">
+                <img src="app5.png" alt="App 5">
+                <span>App 5</span>
+            </div>
+            <div class="app">
+                <img src="app6.png" alt="App 6">
+                <span>App 6</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var appElements = document.querySelectorAll('.app');
+        appElements.forEach(function(app) {
+            app.addEventListener('click', function() {
+                var appName = this.querySelector('img').alt;
+                openApp(appName);
+            });
+        });
+
+        function openApp(appName) {
+            // Perform actions to open the selected app
+            console.log('Opening ' + appName);
+        }
+    </script>
+</body>
+</html>

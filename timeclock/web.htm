@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Fullscreen Time</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #clock {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 5vh;
+            
+            color: #fff;
+            background-color: #000;
+        }
+		 #clock a {
+		     color: #fff;
+			  font-family: Tahoma, sans-serif;
+		 }
+
+        #info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 95vh;
+            font-size: 1.5rem;
+            color: #000;
+            background-color: #fff;
+        }
+
+        #info a {
+            margin: 0 10px;
+            color: #000;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="clock">
+		<a onclick="history.back();">Back</a>
+		<input id="url-input" type="text" placeholder="Enter the URL">
+            <button onclick="loadURL()">Load</button>
+	 </div>
+
+    <div id="info">
+       <iframe id="iframe" style="border: 0px; height: 95vh; width: 100%;" src="https://flagimtoshi.github.io/"></iframe>
+    </div>
+
+   <script>
+            const iframe = document.getElementById('iframe');
+            const urlInput = document.getElementById('url-input');
+
+            function loadURL() {
+                const url = urlInput.value.trim();
+                if (url) {
+                    iframe.src = url;
+                }
+            }
+        </script>
+    
+</body>
+</html>

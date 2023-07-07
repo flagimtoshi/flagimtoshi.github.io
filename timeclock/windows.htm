@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sleek Desktop</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevent scrolling */
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        #desktop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            padding: 20px;
+        }
+
+        .icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        .icon img {
+            width: 80px;
+            height: 80px;
+        }
+
+        .icon span {
+            margin-top: 5px;
+        }
+
+        .window {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 512px;
+            height: 360px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            cursor: move;
+            overflow: hidden;
+            resize: both;
+            z-index: 1;
+        }
+
+        .window-content {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .window-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 10px 10px 0 0;
+            cursor: move;
+        }
+
+        .window-title h3 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: normal;
+        }
+
+        .window-close {
+            cursor: pointer;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .window-body {
+            height: calc(100% - 40px);
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="desktop">
+        <div class="icon" onclick="openWindow('index.htm')">
+            <img src="system/icons/home.png" alt="Icon">
+            <span>FlogOS</span>
+        </div>
+        <div class="icon" onclick="openWindow('web.htm')">
+            <img src="system/icons/files.png" alt="Icon">
+            <span>Browser</span>
+        </div>
+        <div class="icon" onclick="openWindow('calc.htm')">
+            <img src="system/icons/calc-win.png" alt="Icon">
+            <span>Calc.htm</span>
+        </div>
+    </div>
+
+    <script>
+        var windows = [];
+
+        function openWindow(src) {
+            var windowElement = document.createElement('div');
+            windowElement.className = 'window';
+
+            var windowTitle = document.createElement('div');
+            windowTitle.className = 'window-title';
+
+            var titleText = document.createElement('h3');
+            titleText.textContent = 'New Window';
+
+            var closeButton = document.createElement('span');
+            closeButton.className = 'window-close';
+            closeButton.innerHTML = '&times;';
+
+            var windowBody = document.createElement('div');
+            windowBody.className = 'window-body';
+
+            var windowContent = document.createElement('iframe');
+            windowContent.className = 'window-content';
+            windowContent.src = src;
+
+            windowTitle.appendChild(titleText);
+            windowTitle.appendChild(closeButton);
+            windowBody.appendChild(windowContent);
+            windowElement.appendChild(windowTitle);
+            windowElement.appendChild(windowBody);
+            document.body.appendChild(windowElement);
+
+            windows.push(windowElement);
+
+            windowElement.addEventListener('mousedown', startDragging);
+            windowElement.addEventListener('touchstart', startDragging);
+
+            windowElement.addEventListener('mouseup', stopDragging);
+            windowElement.addEventListener('touchend', stopDragging);
+
+            closeButton.addEventListener('click', function() {
+                closeWindow(windowElement);
+            });
+        }
+
+        function closeWindow(windowElement) {
+            windows = windows.filter(function(win) {
+                return win !== windowElement;
+            });
+            windowElement.remove();
+        }
+
+        var draggingWindow = null;
+        var resizingWindow = null;
+        var initialX;
+        var initialY;
+        var initialWidth;
+        var initialHeight;
+
+        function startDragging(e) {
+            draggingWindow = this;
+            initialX = getClientX(e) - this.offsetLeft;
+            initialY = getClientY(e) - this.offsetTop;
+            this.style.zIndex = 9999;
+        }
+
+        function stopDragging() {
+            draggingWindow = null;
+            this.style.zIndex = '';
+        }
+
+        function startResizing(e) {
+            resizingWindow = this;
+            initialX = getClientX(e);
+            initialY = getClientY(e);
+            initialWidth = this.offsetWidth;
+            initialHeight = this.offsetHeight;
+            document.addEventListener('mousemove', resizeWindow);
+            document.addEventListener('touchmove', resizeWindow);
+        }
+
+        function stopResizing() {
+            resizingWindow = null;
+            document.removeEventListener('mousemove', resizeWindow);
+            document.removeEventListener('touchmove', resizeWindow);
+        }
+
+        document.addEventListener('mousemove', dragWindow);
+        document.addEventListener('touchmove', dragWindow);
+
+        function dragWindow(e) {
+            if (draggingWindow !== null) {
+                var newX = getClientX(e) - initialX;
+                var newY = getClientY(e) - initialY;
+                draggingWindow.style.left = newX + 'px';
+                draggingWindow.style.top = newY + 'px';
+            }
+        }
+
+        function resizeWindow(e) {
+            if (resizingWindow !== null) {
+                var newWidth = initialWidth + getClientX(e) - initialX;
+                var newHeight = initialHeight + getClientY(e) - initialY;
+                resizingWindow.style.width = newWidth + 'px';
+                resizingWindow.style.height = newHeight + 'px';
+            }
+        }
+
+        function getClientX(e) {
+            if (e.type === 'touchmove' || e.type === 'touchstart') {
+                return e.touches[0].clientX;
+            }
+            return e.clientX;
+        }
+
+        function getClientY(e) {
+            if (e.type === 'touchmove' || e.type === 'touchstart') {
+                return e.touches[0].clientY;
+            }
+            return e.clientY;
+        }
+    </script>
+</body>
+</html>

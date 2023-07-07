@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+			  font-family: Tahoma, sans-serif;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+        }
+
+        #clock {
+            font-size: 10rem;
+            color: #fff;
+            margin-bottom: -20px;
+        }
+
+        #info {
+            font-size: 1.5rem;
+            color: #555;
+            text-align: center;
+        }
+
+        #info a {
+            margin: 0 10px;
+            color: #fff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="clock"></div>
+        <div id="info">
+            Start:
+            <a href="modernapp.htm">Apps</a>
+			  <a href="paint.htm">Paint</a>
+            <a href="calc.htm">Calc</a>
+            <a href="index.htm">Reboot</a>
+			  <a href="web.htm">Web</a>
+        </div>
+    </div>
+
+    <script>
+			updateTime();
+        function updateTime() {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+
+            var timeString = hours.toString().padStart(2, '0') + ':' +
+                             minutes.toString().padStart(2, '0') + ':' +
+                             seconds.toString().padStart(2, '0');
+
+            document.getElementById('clock').textContent = timeString;
+        }
+
+		function loadBackground() {
+			
+			//idk
+		}
+
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>

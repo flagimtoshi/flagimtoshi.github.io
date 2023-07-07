@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Fullscreen Time</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #clock {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-size: 10rem;
+			  font-family: Tahoma, sans-serif;
+            color: #fff;
+            background-color: #000;
+        }
+
+		 #extra {
+		 	  
+		 
+   		 }
+    </style>
+</head>
+<body>
+    <div id="clock">
+	<div>
+	<p>欢迎</p>
+	</div>
+	 </div>
+
+    <script>
+        function updateTime() {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+
+            var timeString = hours.toString().padStart(2, '0') + ':' +
+                             minutes.toString().padStart(2, '0') + ':' +
+                             seconds.toString().padStart(2, '0');
+
+            document.getElementById('clock').textContent = timeString;
+        }
+
+        setInterval(updateTime, 1000);
+
+			function loadOS(){
+				 window.location.href = "better.htm";
+			}
+			
+		  setInterval(loadOS, 2000);
+    </script>
+	
+</body>
+</html>

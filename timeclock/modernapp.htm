@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Moderner App-Selector</title>
+    <style>
+        html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    
+    animation: fadeBackground 0.33s ease;
+}
+
+
+
+@keyframes fadeBackground {
+    0% {
+        background-position: 0% 50%;
+		background-color: #000;
+    }
+    100% {
+        background-position: 100% 50%;
+		background-color: #fff;
+    }
+}
+
+@keyframes movePanel {
+	from {
+		top: 1000px;
+	}
+	to {
+		top: 0px;
+	}
+}
+
+@keyframes hideAnim {
+	from {
+		bottom: 0px;
+	}
+	to {
+		bottom: 1000px;
+	}
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+	position: relative;
+	background-color: rgba(0, 0, 0, 0);
+	animation: movePanel 0.33s ease;
+	animation-fill-mode: forwards;
+}
+
+#apps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 20px;
+    max-width: 800px;
+    width: 90%;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.app span {
+    font-size: 16px;
+    color: #333;
+    margin-top: 10px;
+}
+
+.app:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="apps">
+            <div class="app" onclick="openApp('better.htm')">
+                <span>Home</span>
+            </div>
+            <div class="app" onclick="openApp('web.htm')">
+                <span>Run</span>
+            </div>
+            <div class="app" onclick="openApp('calc.htm')">
+                <span>Calculator</span>
+            </div>
+            <div class="app" onclick="openApp('web.htm')">
+                <span>Browser</span>
+            </div>
+            <div class="app" onclick="openApp('paint.htm')">
+                <span>Paint</span>
+            </div>
+            <div class="app" onclick="openApp('draw.htm')">
+                <span>Draw</span>
+            </div>
+  			  <div class="app" onclick="openApp('scicalc.htm')">
+                <span>scicalc.htm</span>
+            </div>
+            <div class="app" onclick="openApp('watchcalc.htm')">
+                <span>watchcalc.htm</span>
+            </div>
+            <div class="app" onclick="openApp('apps.htm')">
+                <span>apps.htm</span>
+            </div>
+            <div class="app" onclick="openApp('windows.htm')">
+                <span>Desktop</span>
+            </div>
+            <div class="app" onclick="openApp('App 5')">
+                <span>App 5</span>
+            </div>
+            <div class="app" onclick="openApp('App 6')">
+                <span>App 6</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openApp(appName) {
+            console.log('Opening ' + appName);
+
+				//if(appName == "better.htm"){
+					document.getElementById("container").style = "animation: hideAnim 0.3s ease";
+				//}
+				document.body.style = "background-color: black";
+				
+				setTimeout(function() {
+  				// Code, der erst nach 2 Sekunden ausgeführt wird
+  				//alert('Hello World!');
+			  window.location.href = appName;
+				document.getElementById("container").style = "animation: movePanel 0.3s ease";
+				document.getElementById("container").style = "background-color: white";
+				
+				}, 290); 
+
+        }
+    </script>
+</body>
+</html>
