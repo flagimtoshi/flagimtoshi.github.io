@@ -1,9 +1,9 @@
 body.tjing {
 
-background: #5A59EC;
-background: -webkit-linear-gradient(top left, #5A59EC, #138A66);
-background: -moz-linear-gradient(top left, #5A59EC, #138A66);
-background: linear-gradient(to bottom right, #5A59EC, #138A66);
+background: #20207a;
+background: -webkit-linear-gradient(top left, #20207a, #035c41);
+background: -moz-linear-gradient(top left, #20207a, #035c41);
+background: linear-gradient(to bottom right, #20207a, #035c41);
 background-size: cover;
 overflow-x: hidden; /* Hide hor scrollbars */
 }
@@ -28,10 +28,10 @@ border-radius: 7px;
 }
 
 div.title{
- background: #ffffff;
+ background: radial-gradient( circle 311px at 8.6% 27.9%,  rgba(62,147,252,0.57) 12.9%, rgba(239,183,192,0.44) 91.2% );
  margin: 8px;
- padding: 8px;
- box-shadow: 0px 0px 12px #444444;
+ padding: 0px;
+ box-shadow: 0px 0px 12px rgba(0, 0, 0, .3);
 }
 
 div.content{
@@ -39,7 +39,7 @@ div.content{
  margin: 8px;
  padding: 8px;
  width: 69%;
- box-shadow: 0px 0px 12px #444444;
+ box-shadow: 0px 0px 12px rgba(0, 0, 0, .3);
 }
 
 div.sidebar{
@@ -47,7 +47,7 @@ div.sidebar{
  margin: 8px;
  padding: 8px;
  width: 30%;
- box-shadow: 0px 0px 12px #444444;
+ box-shadow: 0px 0px 12px rgba(0, 0, 0, .3);
 }
 
 .thin-div{
@@ -155,19 +155,21 @@ text-align: left;
       }
 
 .btn-group button {
-  background-color: #057EDF;
-  border: 2px solid white;
+  background-color: rgba(23, 96, 155, 0.3);/*0.961);*/
+  box-shadow: 0px 0px 16px rgba(0,0,0,0.3);
+  border: 2px solid rgb(255, 255, 255, 0);
   color: white;
-  padding: 10px 10px;/*24px*/
-  margin: 0px;
+  padding: 5px 0px;/*24px*/
+  margin: 5px;
   cursor: pointer;
   float: left;
-  width:25%;
+  width:calc( 25% - 10px);
   border-radius: 7px;
   text-align: center;
   
-  transition: filter 0.5s;
-  transition: size: 1s;
+  /*transition: filter 0.5s;*/
+  /*transition: size: 1s;*/
+  transition: all .3s ease-in-out; 
    
 }
 
@@ -184,8 +186,9 @@ text-align: left;
 
 /* Add a background color on hover */
 .btn-group button:hover {
-  filter: brightness(69%);
-  size: 1.1;
+  filter: brightness(170%);
+  scale: 1.05;
+  transition: all .3s ease-in-out; 
 }
 
 .grow { 
@@ -218,4 +221,9 @@ a:active {
 
 color: teal;
 
+}
+.card {
+  background-color: white;
+  padding: 20px;
+  margin-top: 20px;
 }
