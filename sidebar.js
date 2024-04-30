@@ -13,7 +13,7 @@
           frame.contentWindow.document.body.scrollHeight + 'px'; 
           sidebar.style.height =  
           frame.contentWindow.document.body.scrollHeight + 'px'; 
-          
+          alert("Hello" + sidebar.style.height);
            
   
          // set the width of the iframe as the  
