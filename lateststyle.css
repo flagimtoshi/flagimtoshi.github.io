@@ -1,0 +1,153 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul li{
+    display: inline;
+}
+
+body{
+    font: 15px Arial, sans-serif;
+	text-shadow: 1px 1px 24px #999999;
+    background: #4ECDC4;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #556270, #4ECDC4);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #556270, #4ECDC4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+body div{
+    background-color: bisque;
+    margin: 12px;
+    padding: 12px;
+    display: inline-block;
+    border-radius: 12px;
+    box-shadow: rgba(0,0,0,0.3) 0px 0px 10px;
+}
+
+div.content{
+
+    width: calc(75% - 50px);
+    background-color: white;
+}
+
+div.sidebar{
+    float: right;
+    width: calc(25% - 50px);
+    background-color: white;
+}
+div.title{
+    box-shadow: rgba(0,0,0,0) 0px 0px 0px;
+    background-color: rgba(0,0,0,0.01);
+    color: white;
+    width: calc(100% - 50px);
+    vertical-align: middle;
+    display: flex;
+  align-items: center;
+
+}
+
+div.sidebar iframe{
+    border-radius: 0px;
+    border-width: 0px;
+    width: auto;
+    height: auto;
+}
+
+div.title img{   
+    width: 42px;
+    height: 42px;
+}
+
+
+button{
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    border-width: 0px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 10px;
+    padding: 12px;
+    margin: 3px;
+    color: white;
+    cursor: pointer;
+
+    transition: all .2s ease-in-out; 
+}
+
+button.navbarButton{
+    background-color: rgba(255, 255, 255, 0.1);
+    width: calc(100% / 4 - 10px);
+
+
+}
+
+button.sidebar{
+
+    width: 100%;
+    margin: 0px;
+}
+
+button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+  }
+  
+  /* Clear floats (clearfix hack) */
+  button:after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  /* Add a background color on hover */
+  button:hover {
+    filter: brightness(150%);
+    scale: 1.05;
+    transition: all .3s ease-in-out; 
+  }
+
+    /* Add a background color on hover */
+    button:active {
+        filter: brightness(70%);
+        scale: 0.95;
+        transition: all .15s ease-in-out; 
+      }
+
+nav.menu{
+    -webkit-animation: changeColor 10s; 
+    animation: changeColor 10s;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    animation-direction: alternate;
+    border-radius: 16px;
+    padding: 12px;
+    margin: 12px;
+    box-shadow: rgba(0,0,0,0.3) 0px 0px 10px;
+}
+
+@-webkit-keyframes changeColor {
+    0%   {background-color: rgba(140, 0, 255, 0.3);}
+    33%  {background-color: rgba(1, 25, 102, 0.3);}
+    66%  {background-color: rgba(0, 107, 14, 0.3);}
+    100% {background-color: rgba(122, 126, 75, 0.3);}
+}
+
+@keyframes changeColor {
+    0%   {background-color: rgba(140, 0, 255, 0.3);}
+    33%  {background-color: rgba(1, 25, 102, 0.3);}
+    66%  {background-color: rgba(0, 107, 14, 0.3);}
+    100% {background-color: rgba(122, 126, 75, 0.3);}
+}
+
+footer{
+    position: sticky;
+    left: 0;
+    bottom: 0;
+    width: calc(75% - 50px);
+    background-color: rgba(0, 0, 0, 0.25);
+    color: white;
+    text-align: center;
+    scale: 0.8;
+    padding: 1px;
+    
+    border-radius: 12px;
+}
