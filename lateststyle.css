@@ -11,9 +11,11 @@ ul li{
 body{
     font: 15px Arial, sans-serif;
 	text-shadow: 1px 1px 24px #999999;
-    background: #4ECDC4;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #556270, #4ECDC4);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #556270, #4ECDC4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #20207a;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #20207a, #035c41);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #20207a, #035c41); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    /*background-image: url("https://m.gjcdn.net/game-header/1300/377149-crop0_0_1440_533-yyssvgze-v4.webp");
+    background-size: 100%;*/
 }
 
 body div{
@@ -48,6 +50,13 @@ div.title{
 }
 
 div.sidebar iframe{
+    border-radius: 0px;
+    border-width: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+div.frostedsidebar iframe{
     border-radius: 0px;
     border-width: 0px;
     width: 100%;
@@ -151,3 +160,89 @@ footer{
     
     border-radius: 12px;
 }
+
+iframe.menuiframe {
+    border: 0px;
+    width: 100%;
+    height: 100px;
+}
+
+.frosted{
+    background: rgba(255, 255, 255, 0.66);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.frosteddark{
+    background: rgba(0, 0, 0, 0.33);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 0px solid rgba(255, 255, 255, 0.3);
+}
+
+.frostednavi{
+    background: rgba(255, 255, 255, 0.66);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 0px solid rgba(255, 255, 255, 0.3);
+}
+
+.frostedcontent{
+    width: calc(75% - 50px);
+    background-color: white;
+    background: rgba(255, 255, 255, 0.66);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+div.frostedsidebar{
+    /* From https://css.glass */
+    float: right;
+    width: calc(25% - 50px);
+    background-color: white;
+    background: rgba(255, 255, 255, 0.66);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+
+    color: white;
+}
+
+.whitetext{
+    color: white;
+}
+
+
+@media (max-width: 767px) {
+    .hidden-mobile {
+      display: none;
+    }
+    .fullscreen-mobile {
+      width: 100%;
+    }
+    .divpadding-mobile {
+      width: 100vw;
+      margin: 0px;
+      padding: 0px;
+      float:left;
+    }
+    #contentdiv {
+    /*width: 95.5%;*/
+    width: calc(100% - 50px);
+    
+}
+  }
+
+
