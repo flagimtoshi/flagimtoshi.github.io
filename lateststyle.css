@@ -16,6 +16,12 @@ body{
     background: linear-gradient(to right, #20207a, #035c41); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     /*background-image: url("https://m.gjcdn.net/game-header/1300/377149-crop0_0_1440_533-yyssvgze-v4.webp");
     background-size: 100%;*/
+    
+    
+}
+body.bg-utrcraft{
+    background-image: url("https://m.gjcdn.net/game-header/1300/377149-crop0_0_1440_533-yyssvgze-v4.webp");
+    background-size: 100% 100%;
 }
 
 body div{
