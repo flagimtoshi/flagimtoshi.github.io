@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" 
+      type="image/png" 
+      href="http://flagimtoshi.github.io/Logo.png">
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <link rel="apple-touch-startup-image" href="https://flagimtoshi.github.io/Logo.png">
+      
+             <meta name="apple-mobile-web-app-title" content="Flagimtoshi Hub">
+      
+             <meta name = "viewport" content = "initial-scale = 0.75, user-scalable = no">
+             <link rel="apple-touch-icon" href="https://flagimtoshi.github.io/Logo.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" /></link>
+  <meta name="description" content="" /></link>
+    <link rel="stylesheet" href="../../lateststyle.css" /></link>
+    <title>Time Progress Bar</title>
+    <style>
+        #progress-container {
+            margin: 50px;/*50px;*/
+            width: calc(95% - 100px);
+            
+        }
+        #progress-bar {
+            width: 0;
+            height: 30px;
+            background-color: #007BFF;
+            color: #fff;
+            text-align: center;
+            line-height: 30px;
+            float: left;
+        }
+    </style>
+</head>
+<header>
+    <div class="title">
+      <img src="https://flagimtoshi.github.io/Logo.png" alt="F"></img>
+      <h1>Flagimtoshi</h1>
+    </div>
+  </header>
+  <iframe class="menuiframe" src="../../navbar.htm"></iframe>
+<body class="bg-timeprogress">
+    <div class="frostedcontent">
+    <h1>Time Progress Bar</h1>
+    <div id="progress-container" class="frosteddark">
+        <div id="progress-bar">0%</div>
+    </div>
+    <label for="start-time">Start Time</label>
+    <input type="time" id="start-time">
+    <br><br>
+    <label for="end-time">End Time</label>
+    <input type="time" id="end-time">
+    <br><br>
+    <button onclick="startProgress()">Start</button>
+</div>
+<div class="frostedsidebar hidden-mobile" id="Sidebar">
+    <iframe src="../../sidebar.htm" title="description" id="Iframe" style="height: 370px;"></iframe>
+    <script src="sidebar.js"></script>
+  </div>
+
+    <script>
+        function startProgress() {
+            const startTimeInput = document.getElementById("start-time");
+            const endTimeInput = document.getElementById("end-time");
+            const progressBar = document.getElementById("progress-bar");
+            const progressContainer = document.getElementById("progress-container");
+
+            const currentDate = new Date();
+            const startTime = new Date(currentDate.toDateString() + ' ' + startTimeInput.value);
+            const endTime = new Date(currentDate.toDateString() + ' ' + endTimeInput.value);
+
+            if (isNaN(startTime.getTime()) || isNaN(endTime.getTime())) {
+                alert("Please enter valid start and end times.");
+                return;
+            }
+
+            const totalTime = endTime - startTime;
+            let currentTime = startTime;
+
+            const updateProgress = () => {
+                const elapsedTime = new Date() - currentTime;
+                const progress = (elapsedTime / totalTime) * 100;
+
+                if (progress >= 100) {
+                    progressBar.style.width = "95%";
+                    progressBar.textContent = "100%";
+                } else {
+                    progressBar.style.width = progress + "%";
+                    progressBar.textContent = Math.round(progress)+"%";
+                    requestAnimationFrame(updateProgress);
+                }
+            };
+
+            updateProgress();
+        }
+    </script>
+</body>
+</html>
