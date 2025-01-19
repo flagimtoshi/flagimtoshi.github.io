@@ -3,49 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pizdezu</title>
+    <title>Pizdezu Styled</title>
     <style>
         body {
+            margin: 0;
+            padding: 0;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            font-family: Arial, sans-serif;
+            flex-direction: column;
             height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-            color: #333;
+            font-family: "Arial Black", Arial, sans-serif;
+            background: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh8u_WMRhXfKARfQMk2L7xUWk9SVB8gEOREn7Fs5B27ONtIFppQZ6Vgv7OdyXaHm4LTcho3CR9uP6f8gI2APjF0aVXEAtML1bz6ke_zKrJQcIvRdyPyEYVmb-mU17Mhr0d3isopAuiOr0ce/s1600/Flag_of_Transnistria.gif') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            text-shadow: 0 0.1 15px white, 0 0 10px black;
+            overflow: hidden;
         }
+
+        #textTop {
+            font-size: 2rem;
+            background: linear-gradient(to right, red, white, blue);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
         #countup {
-            font-size: 3rem;
-            margin: 20px 0;
+            font-size: 4rem;
+            font-weight: bold;
+            animation: flicker 1.5s infinite alternate;
         }
-        #textTop, #textBottom {
+
+        #textBottom {
             font-size: 1.5rem;
-            margin: 10px 0;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        @keyframes flicker {
+            0% {
+                text-shadow: 0 0 10px red, 0 0 20px white, 0 0 30px blue;
+            }
+            50% {
+                text-shadow: 0 0 15px white, 0 0 25px red, 0 0 35px blue;
+            }
+            100% {
+                text-shadow: 0 0 20px blue, 0 0 30px red, 0 0 40px white;
+            }
+        }
+
+        .perspective {
+            width: 100%;
+            perspective: 1000px;
+            background: transparent;
+        }
+
+        #top {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            background: transparent;
+        }
+
+        .card {
+            width: 270px;
+            height: 413px;
+            margin: auto;
+            box-shadow: 0 70px 63px -60px #494848;
+            transform-style: preserve-3d;
+            transition: transform .05s linear;
+        }
+
+        .card .thumb {
+            background: url('https://i.pinimg.com/564x/f4/81/4d/f4814d2d0e635505eaa6971704cbed79.jpg') no-repeat center;
+            background-size: cover;
+            height: 100%;
+            width: 100%;
+            border-radius: 15px;
+        }
+
+        .card .thumb:after {
+            background: inherit;
+            content: '';
+            display: block;
+            position: absolute;
+            left: -60px;
+            top: 40px;
+            width: 100%;
+            height: 108%;
+            z-index: -1;
+            filter: blur(55px);
+        }
+
+        .card h2 {
+            position: absolute;
+            top: 0;
+            left: -60px;
+            font-size: 40px;
+            font-weight: 100;
+            transform: translateZ(80px);
+        }
+
+        .card span {
+            position: absolute;
+            bottom: 40px;
+            right: -280px;
+            font-size: 37px;
+            font-weight: 600;
+            transform: translateZ(35px);
         }
     </style>
 </head>
 <body>
 
-    <div id="textTop">The Money owed by Ёва to Еврей</div>
-    <div id="countup">0 €</div>
-    <div id="textBottom">Черт возьми, моя работа платит 9 евро в час, и я их верну))</div>
+<div id="top">
+    <div class="perspective">
+        <div class="card" style="background-color: rgba(red, green, blue, 0.3);backdrop-filter: blur(100px); border-radius: 15px;">
+            <div id="textTop">ВНЕШНИЙ ДОЛГ ЁВА</div>
+            <div id="textTop">The Money owed by Ёва to Еврей</div>
+            <div id="countup">0.000 €</div>
+            <div id="textBottom">Черт возьми, моя работа платит 9 евро в час, и я их верну))</div>
+        </div>
+    </div>
+</div>
 
-    <script>
-        // Set the date you're counting from (year, month (0-11), day, hours, minutes, seconds)
-        const startDate = new Date(2022, 7, 29, 14, 5, 0); // August 29, 2022
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        function updateCountup() {
-            const now = new Date();
-            const difference = now - startDate;
-            const minutesPassed = Math.floor(difference / (1000 * 60));
-            document.getElementById('countup').textContent = `${minutesPassed}€`;
-        }
+<script>
+    // Set the date you're counting from (year, month (0-11), day, hours, minutes, seconds)
+    const startDate = new Date(2022, 7, 29, 14, 5, 0); // August 29, 2022
 
-        // Update the counter every second
-        setInterval(updateCountup, 1000);
-    </script>
+    function updateCountup() {
+        const now = new Date();
+        const difference = now - startDate; // Milliseconds since startDate
+
+        // Calculate euros based on minutes and tenths of cents
+        const euros = (difference / (1000 * 60)).toFixed(4); // 1 Euro per minute, with three decimal places
+        document.getElementById('countup').textContent = `${euros} €`;
+    }
+
+    // Update the counter every millisecond for smooth updates
+    setInterval(updateCountup, 1);
+
+    var o = $(".card");
+    $("#top").on("mousemove", function (t) {
+        var e = -($(window).innerWidth() / 2 - t.pageX) / 30,
+            n = ($(window).innerHeight() / 2 - t.pageY) / 10;
+        o.attr("style", "backdrop-filter: blur(100px); flex-direction: column; width: 75%; background-color: rgba(200, 200, 200, 0); border-radius: 15px; display: flex;justify-content: center;align-items: center; transform: rotateY(" + e + "deg) rotateX(" + n + "deg);-webkit-transform: rotateY(" + e + "deg) rotateX(" + n + "deg);-moz-transform: rotateY(" + e + "deg) rotateX(" + n + "deg)")
+    });
+</script>
 
 </body>
 </html>
