@@ -116,6 +116,22 @@
             font-weight: 600;
             transform: translateZ(35px);
         }
+
+        #cont {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #aaa;
+  /*To show the boundaries of the element*/
+}
+
+#cont:before {
+  position: absolute;
+  content: '';
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
     </style>
 </head>
 <body>
@@ -130,6 +146,9 @@
         </div>
     </div>
 </div>
+    <div id="cont">
+        <img src="confetti.gif" style="width: 100%; height: 100%;"></img>
+    </div>div
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
