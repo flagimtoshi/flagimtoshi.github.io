@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>❤️❤️❤️❤️❤️</title>
+
+<style>
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  touch-action: none;
+  overscroll-behavior: none;
+  font-family: Georgia, serif;
+}
+
+/* LOCK SCREEN */
+.lock-screen {
+  position: fixed;
+  inset: 0;
+  background: #f4f1ee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 10;
+
+  transform: translateY(0);
+  transition: transform 0.6s ease;
+}
+
+/* when hidden (example state) */
+.lock-screen.hidden {
+  transform: translateY(-100%);
+}
+.lock-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.swipe-text {
+  font-size: 18px;
+  color: #555;
+  margin-top: 20px;
+  animation: float 1s infinite alternate;
+}
+
+@keyframes float {
+  from { transform: translateY(0); }
+  to { transform: translateY(-8px); }
+}
+
+/* MAIN EXPERIENCE */
+.main {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(to top, #ff9a9e, #fad0c4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.main.show {
+  opacity: 1;
+}
+
+/* HEARTS */
+.hearts {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.heart {
+  position: absolute;
+  bottom: -20px;
+  width: 15px;
+  height: 15px;
+  background: rgba(255,255,255,0.7);
+  transform: rotate(45deg);
+  animation: floatUp linear forwards;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: inherit;
+  border-radius: 50%;
+}
+
+.heart::before { top: -7px; left: 0; }
+.heart::after { left: -7px; top: 0; }
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(45deg) scale(0.8);
+    opacity: 0;
+  }
+  20% { opacity: 1; }
+  100% {
+    transform: translateY(-110vh) rotate(45deg) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* ENVELOPE */
+.envelope {
+  width: 67%;
+  height: 67%;
+  background: white;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.flap {
+  position: absolute;
+  width: 100%;
+  height: 90%;
+  background: #ff6b81;
+  top: 0;
+  transform-origin: top;
+  transition: transform 2.7s ease-in;
+  z-index: 2;
+}
+
+/* LETTER */
+.letter {
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  background: #fffaf0;
+  left: 5%;
+  top: 130%;
+  border-radius: 8px;
+  padding: 20px;
+  box-sizing: border-box;
+  transition: transform 1s ease;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* OPEN STATE */
+.open .flap {
+  transform: rotateX(180deg);
+}
+
+.open .letter {
+  transform: translateY(-140%);
+}
+
+/* TEXT */
+.text {
+  opacity: 0;
+  transition: opacity 1s ease 0.8s;
+}
+
+.open .text {
+  opacity: 1;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOCK SCREEN -->
+<div class="lock-screen" id="lock">
+  <h2>❤️</h2>
+  <div class="swipe-text">Swipe up to unlock</div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main" id="main">
+  <div class="hearts" id="hearts"></div>
+
+  <div class="envelope" id="envelope">
+    <div class="flap"></div>
+
+    <div class="letter">
+      <div class="text">
+        Уже прошел год вместе <3 ε(´｡•᎑•`)っ 💕<br><br>
+
+Дорогая Евочка моя, спасибо, что ты у меня есть, мой любимый человек.  Мне не верится что мы уже так много вместе проделали,  но одновременно так мало вить я знаю что  нас ждет еще на много больше.<br><br>
+
+Будь моей, будь дальше my cut'(e) cut'(e) <3<3<br><br>
+
+С много любовью
+твой Петя (─‿‿─)
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const lock = document.getElementById("lock");
+const main = document.getElementById("main");
+const envelope = document.getElementById("envelope");
+const heartsContainer = document.getElementById("hearts");
+
+let startY = 0;
+let endY = 0;
+let unlocked = false;
+
+/* HEART SPAWNER */
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+
+  heartsContainer.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 7000);
+}
+
+let heartInterval;
+
+/* TOUCH LOGIC */
+document.addEventListener("touchstart", e => {
+  startY = e.touches[0].clientY;
+});
+
+document.addEventListener("touchmove", e => {
+  endY = e.touches[0].clientY;
+});
+
+document.addEventListener("touchend", () => {
+  if (unlocked) return;
+
+  if (startY - endY > 80) {
+    unlocked = true;
+
+    lock.classList.add("hidden");
+
+    setTimeout(() => {
+      main.classList.add("show");
+    }, 300);
+
+    setTimeout(() => {
+      envelope.classList.add("open");
+    }, 900);
+
+    /* START HEARTS AFTER UNLOCK */
+    heartInterval = setInterval(createHeart, 300);
+  }
+});
+</script>
+
+</body>
+</html>
