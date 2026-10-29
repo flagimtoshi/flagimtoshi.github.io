@@ -23,7 +23,7 @@ html, body {
 
 #ui-header {
   position: fixed;
-  top: 20px;
+  top: 30px;
   left: 50%;
   transform: translateX(-50%);
   padding: 12px 20px;
@@ -56,7 +56,7 @@ html, body {
 
 #toro {
   position: absolute;
-  bottom: 40px;
+  bottom: 120px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
