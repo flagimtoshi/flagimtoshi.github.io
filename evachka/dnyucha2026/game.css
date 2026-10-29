@@ -1,0 +1,200 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  touch-action: none;
+  overscroll-behavior: none;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #ff9a9e, #fad0c4);
+  color: #5a4a4a;
+}
+
+.frosted {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #7a5a5a;
+}
+
+#ui-header {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 20px;
+  z-index: 100;
+  text-align: center;
+  min-width: 240px;
+}
+
+.progress-main {
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+  color: #d63384;
+}
+
+.progress-small {
+  font-size: 10px;
+  font-weight: normal;
+  letter-spacing: 1px;
+  opacity: 0.8;
+  color: #a56d6d;
+}
+
+#game-world {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+#toro {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.player-sprite {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.heart {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.heart-sprite {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  z-index: -1;
+}
+
+#redeem-zone {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  background: rgba(255, 255, 255, 0.2);
+  border-left: 3px dashed rgba(255, 255, 255, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 14px;
+  color: #a56d6d;
+  pointer-events: none;
+  z-index: 1;
+}
+
+#controls-hint {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  font-size: 12px;
+  opacity: 0.8;
+  z-index: 100;
+  text-align: center;
+  transition: transform 0.5s ease-in, opacity 0.5s ease-in;
+}
+
+.tutorial-hidden {
+  transform: translateX(-50%) translateY(150%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bg-hearts {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.bg-heart {
+  position: absolute;
+  bottom: -20px;
+  width: 15px;
+  height: 15px;
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(45deg);
+  animation: floatUp linear forwards;
+}
+
+.bg-heart::before,
+.bg-heart::after {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: inherit;
+  border-radius: 50%;
+}
+
+.bg-heart::before { top: -7px; left: 0; }
+.bg-heart::after { left: -7px; top: 0; }
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(45deg) scale(0.8);
+    opacity: 0;
+  }
+  20% { opacity: 1; }
+  100% {
+    transform: translateY(-110vh) rotate(45deg) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* JUICE EFFECTS */
+.burst-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #ff6b81;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 20;
+  transform: translate(-50%, -50%);
+}
+
+#toro.hit .player-sprite {
+  transform: scale(1.4);
+  transition: transform 0.1s ease-out;
+}

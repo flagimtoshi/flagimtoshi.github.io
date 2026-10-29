@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="stylesheet" href="game.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Для моей Евочки 🌸</title>
+</head>
+<body>
+  <div id="bg-hearts" class="bg-hearts"></div>
+
+<div id="ui-header" class="frosted">
+  <div id="prog-main" class="progress-main">Слово: ____ ____</div>
+  <div id="prog-small" class="progress-small"></div>
+</div>
+
+<div id="game-world">
+  <div id="toro">
+    <img src="./player.gif" class="player-sprite" alt="Toro">
+  </div>
+  <div id="redeem-zone">ЭТО ПОРТАЛ ➔</div>
+</div>
+
+<div id="controls-hint" class="frosted">
+  📱 Нажимай слева/справа | ⌨️ Используй A / D <br>
+  Собери буквы и иди вправо к порталу!
+</div>
+
+<script>
+(function() {
+  const toro = document.getElementById('toro');
+  const progMain = document.getElementById('prog-main');
+  const progSmall = document.getElementById('prog-small');
+  const gameWorld = document.getElementById('game-world');
+  const hint = document.getElementById('controls-hint');
+  let audioCtx = null;
+
+  function playChime() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.value = 523.25;
+    gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.15);
+  }
+
+  function spawnBurst(x, y) {
+    for(let i=0; i<8; i++) {
+      const p = document.createElement('div');
+      p.className = 'burst-particle';
+      p.style.left = x + 'px';
+      p.style.top = y + 'px';
+      gameWorld.appendChild(p);
+      const angle = (Math.PI * 2 * i) / 8;
+      const distance = 40 + Math.random() * 20;
+      const dx = Math.cos(angle) * distance;
+      const dy = Math.sin(angle) * distance;
+      p.animate([
+        { transform: "translate(0, 0) scale(1)", opacity: 1 },
+        { transform: `translate(${dx}px, ${dy}px) scale(0)`, opacity: 0 }
+      ], { duration: 400, easing: 'ease-out' });
+      setTimeout(() => p.remove(), 400);
+    }
+  }
+
+
+  const normalizationMap = {
+    'A': 'А', 'B': 'В', 'E': 'Е', 'K': 'К', 'M': 'М', 'O': 'О', 'P': 'Р', 'C': 'С', 'T': 'Т', 'X': 'Х', 'Y': 'У'
+  };
+
+  function normalize(char) {
+    if (!char) return '';
+    const c = char.toUpperCase();
+    return normalizationMap[c] || c;
+  }
+
+  const targetMain = { word: "ТВОЙ ДЕНЬ", letters: ['Т', 'В', 'О', 'Й', 'Д', 'Е', 'Н', 'Ь'] };
+  const targetSmall = { word: "PRIMETIME", letters: ['P', 'R', 'I', 'M', 'E', 'T', 'I', 'M', 'E'] };
+  const allLetters = ['Т', 'В', 'О', 'Й', 'Д', 'Е', 'Н', 'Ь', 'P', 'R', 'I', 'M', 'E', 'T', 'A', 'B', 'S', 'O', 'L', 'U', 'V', 'E'];
+
+  let collected = new Set();
+  let toroX = window.innerWidth / 2;
+  let targetX = window.innerWidth / 2;
+  const toroSpeed = 0.15;
+  let tutorialActive = true;
+
+  function hideTutorial() {
+    if (tutorialActive) {
+      hint.classList.add('tutorial-hidden');
+      tutorialActive = false;
+      document.getElementById("controls-hint").remove(); // This is the best solution i came up with
+    }
+  }
+
+  window.addEventListener('touchstart', (e) => {
+    hideTutorial();
+    const touchX = e.touches[0].clientX;
+    if (touchX < window.innerWidth / 2) {
+      targetX -= 50;
+    } else {
+      targetX += 50;
+    }
+    targetX = Math.max(40, Math.min(window.innerWidth - 40, targetX));
+    e.preventDefault();
+  }, { passive: false });
+
+  window.addEventListener('keydown', (e) => {
+    hideTutorial();
+    const key = e.key.toLowerCase();
+    if (key === 'a') targetX -= 50;
+    else if (key === 'd') targetX += 50;
+    targetX = Math.max(40, Math.min(window.innerWidth - 40, targetX));
+  });
+
+  function spawnHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    const char = allLetters[Math.floor(Math.random() * allLetters.length)];
+    heart.innerText = char;
+    const img = document.createElement('img');
+    img.src = './heart.gif';
+    img.className = 'heart-sprite';
+    heart.appendChild(img);
+    heart.style.left = Math.random() * (window.innerWidth - 110) + 'px';
+    heart.style.top = '-60px';
+    gameWorld.appendChild(heart);
+    
+    let posY = -60;
+    const speed = Math.random() * 2 + 2;
+    
+    const fall = setInterval(() => {
+      posY += speed;
+      heart.style.top = posY + 'px';
+      
+      const toroRect = toro.getBoundingClientRect();
+      const heartRect = heart.getBoundingClientRect();
+      
+      if (
+        heartRect.bottom > toroRect.top &&
+        heartRect.top < toroRect.bottom &&
+        heartRect.right > toroRect.left &&
+        heartRect.left < toroRect.right
+      ) {
+        collected.add(normalize(char));
+        updateProgress();
+        playChime();
+        toro.classList.add('hit');
+        setTimeout(() => toro.classList.remove('hit'), 150);
+        const gameWorldRect = gameWorld.getBoundingClientRect();
+        spawnBurst(toroRect.left - gameWorldRect.left + (toroRect.width / 2), toroRect.top - gameWorldRect.top + (toroRect.height / 2));
+        heart.remove();
+        clearInterval(fall);
+      }
+      
+      if (posY > window.innerHeight) {
+        heart.remove();
+        clearInterval(fall);
+      }
+    }, 16);
+  }
+
+  function updateProgress() {
+    let mainStr = "";
+    targetMain.word.split('').forEach(char => {
+      if (char === ' ') {
+        mainStr += ' ';
+      } else {
+        mainStr += collected.has(normalize(char)) ? char : '_';
+      }
+    });
+    progMain.innerText = "Слово: " + mainStr;
+
+    // The secret word "PRIMETIME" remains completely hidden until collected.
+    const wonSmall = targetSmall.letters.every(l => collected.has(normalize(l)));
+    if (wonSmall) {
+      progSmall.innerText = "Alt: " + targetSmall.word;
+      progSmall.style.display = "block";
+    } else {
+      progSmall.style.display = "none";
+    }
+  }
+
+  function update() {
+    toroX += (targetX - toroX) * toroSpeed;
+    toro.style.left = toroX + 'px';
+    
+    if (toroX > window.innerWidth - 80) {
+      const wonMain = targetMain.letters.every(l => collected.has(normalize(l)));
+      const wonSmall = targetSmall.letters.every(l => collected.has(normalize(l)));
+      if (wonMain) {
+        document.body.style.transition = 'opacity 1s';
+        document.body.style.opacity = '0';
+        setTimeout(() => { window.location.href = 'next.htm'; }, 1000);
+        return;
+      } else if (wonSmall) {
+        window.location.href = 'easteregg.htm';
+        return;
+      }
+    }
+    requestAnimationFrame(update);
+  }
+
+  setInterval(spawnHeart, 1500);
+  update();
+
+  function createBgHeart() {
+    const heart = document.createElement("div");
+    heart.className = "bg-heart";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+    const container = document.getElementById("bg-hearts");
+    if (container) container.appendChild(heart);
+    setTimeout(() => heart.remove(), 7000);
+  }
+  setInterval(createBgHeart, 800);
+
+})();
+</script>
+</body>
+</html>

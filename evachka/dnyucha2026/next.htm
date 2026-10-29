@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="stylesheet" href="end.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>С Днем Рождения, Евочка! 🌸</title>
+</head>
+<body>
+
+<div class="hearts" id="hearts"></div>
+
+<div class="frosted">
+  <h1>С Днем Рождения, Евочка! 🌸</h1>
+  <div class="heart-divider">❤️ ✨ ❤️</div>
+  <p>
+    С твоим 22-летием, любимая &lt;3<br>
+    ε(´｡•᎑•`)っ 💕
+    <br><br>
+    Дорогая Евочка моя, спасибо, что ты у меня есть, мой любимый человек.<br>
+    Мне не верится, что мы уже так много вместе проделали, и я так счастлив праздновать твой день рождения с тобой. Я знаю, что нас ждет еще намного больше!
+    <br><br>
+    Если ты это читаешь, то ты отгадала, что в подарке, и прошла игру. Поздравляю! &lt;3&lt;3
+    <br><br>
+    С огромной любовью,
+  </p>
+  <div class="footer-note">Твой Петя (─‿‿─)</div>
+</div>
+
+<script>
+(function() {
+  const container = document.getElementById('hearts');
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+    container.appendChild(heart);
+    setTimeout(() => heart.remove(), 7000);
+  }
+  setInterval(createHeart, 300);
+})();
+</script>
+</body>
+</html>
